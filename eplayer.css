@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+#player-container {
+    position: relative;
+    margin: 0 auto; /* 自动水平居中 */
+    padding: 10px;
+    height: 100%;
+    overflow: auto; /* 允许滚动 */
+    display: flex;
+    flex-wrap: wrap; /* 允许换行 */
+    gap: 10px; /* 播放器之间的间距 */
+}
+
+.eplayer-container {
+    width: 150px;
+    height: 300px;
+    background-color: #aaebff;
+    border-radius: 15px;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* 保持播放器不超过左130px右30px */
+#player-container::before {
+    content: '';
+    display: block;
+    width: 260px; /* 左边距 */
+}
+
+.eplayer-container {
+    flex: 1 1 300px; /* 播放器的基础宽度和自适应 */
+    max-width: calc(100% - 130px - 30px); /* 宽度限制 */
+}
+
+.eplayer-container:nth-of-type(2n) {
+    margin-right: 30px; /* 右边距 */
+}
+
+/* 确保播放器在超过最大宽度时换行 */
+@media (max-width: 480px) {
+    .eplayer-container {
+        max-width: 100%;
+    }
+}
+
+.cover-container {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.cover-container img {
+    width: 50px; /* 固定宽度 */
+    height: 50px; /* 固定高度 */
+    object-fit: cover; /* 保持图片比例并填充容器 */
+    border-radius: 10px;
+}
+.cover-container {
+    position: relative;
+    margin-bottom: 10px;
+    z-index: 2; /* 确保图片在歌词上方 */
+}
+
+.cover-container img {
+    width: 90px; /* 固定宽度 */
+    height: 90px; /* 固定高度 */
+    object-fit: cover; /* 保持图片比例并填充容器 */
+    border-radius: 10px;
+}
+
+.song-info {
+    margin-top: 10px;
+}
+
+#title {
+    font-size: 16px;
+    font-weight: bold; /* 歌曲名加粗 */
+    color: #333;
+}
+
+#author {
+    font-size: 12px;
+    color: #666;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    height: 60px;
+    justify-content: space-between;
+}
+
+.top-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px; /* 调整按钮大小 */
+}
+
+#play-pause {
+    font-size: 24px; /* 播放按钮的大小 */
+}
+
+#progress {
+    flex: 1;
+    margin: 0 10px;
+}
+
+#time-display {
+    margin: 0 10px;
+}
+
+.bottom-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#volume-mute {
+    font-size: 24px; /* 静音按钮大小 */
+}
+
+#volume {
+    width: 80px;
+    margin: 0 10px;
+}
+
+#loop {
+    font-size: 24px; /* 循环按钮大小 */
+}
+
+.lrc-container {
+    margin-top: 10px;
+    text-align: center; /* 居中显示歌词 */
+    height: 60px; /* 隐藏状态时的高度 */
+    overflow: hidden;
+    transition: height 0.3s ease, font-size 0.3s ease; /* 平滑过渡效果 */
+    position: absolute; /* 确保歌词在播放器的底部 */
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.lrc-container.expanded {
+    height: calc(100% - 80px); /* 展开状态时的高度 */
+}
+
+#lrc-content {
+    max-height: 100%;
+    overflow-y: auto;
+    display: block; /* 确保歌词始终显示 */
+    font-size: 14px; /* 隐藏时的字体大小 */
+    color: white; /* 歌词颜色为白色 */
+}
+
+#toggle-lrc {
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 18px;
+}
+
+#lrc-content p {
+    margin: 0;
+    padding: 2px 0;
+    color: rgb(255, 255, 255); /* 歌词颜色为白色 */
+    transition: font-weight 0.3s, font-size 0.3s;
+}
+
+#lrc-content p.active {
+    color: rgb(0, 0, 0); /* 高亮歌词颜色 */
+    font-weight: bold;
+    font-size: 27px; /* 当前歌词加大 */
+}
